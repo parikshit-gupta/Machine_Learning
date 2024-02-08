@@ -17,7 +17,6 @@ def first_non_repeating_char(s):
             min_char=i
     return min, min_char
 
-
 s="aDcadhc"
 a,b=first_non_repeating_char(s)
 print(a,b)
