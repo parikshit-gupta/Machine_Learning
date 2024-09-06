@@ -297,7 +297,6 @@ class Network:
                 # 1) fwd pass and calculating loss for the datapoint assuming activation to be sigmoid
                 y_p=self(x)
                 self.root=y_p.BinCrossEntropy(y); self.root.label='Loss'
-                print(self.root)
                 # 2) backward pass
                 self.backward()
                 
