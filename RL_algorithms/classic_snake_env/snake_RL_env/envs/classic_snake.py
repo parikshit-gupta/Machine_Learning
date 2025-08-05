@@ -47,7 +47,7 @@ class ClassicSnakeEnv(gym.Env):
         self.direction=None
         self.score=0
         self.step_count=0
-        self.step_limit=size*size/2
+        self.step_limit=size*2.5
         
         self._action_to_direction = {
             Actions.right.value: np.array([0, 1]),
@@ -63,7 +63,8 @@ class ClassicSnakeEnv(gym.Env):
         self.clock = None
     
     def _get_obs(self):
-        return self.grid
+        grid_copy=np.copy(self.grid)
+        return grid_copy
     
     def _get_info(self):
         return {"score": self.score}
@@ -98,7 +99,6 @@ class ClassicSnakeEnv(gym.Env):
         truncate=False
         if(self.step_count >= self.step_limit):
             truncate=True
-            self.step_count = 0
         
         # 1) check is action is valid cant be the opposite of the current direction
         direction=self._action_to_direction[action]
@@ -116,6 +116,7 @@ class ClassicSnakeEnv(gym.Env):
         
         # 3) Snake has eaten the food
         if self.grid[new_head] == 2:
+            self.step_count=0
             self.snake.appendleft(new_head)  # Add new head to the front of the snake
             self.grid[new_head] = 1
             

@@ -1,5 +1,5 @@
 from keras.models import Sequential
-from keras.layers import Dense, Flatten, Conv2D
+from keras.layers import Dense, Flatten, Conv2D, Dropout
 from keras.optimizers import Adam
 from collections import deque
 import numpy as np
@@ -33,9 +33,10 @@ class agent():
     def create_model(self):
         model=Sequential()
         model.add(Conv2D(16, kernel_size=(4, 4), activation='relu', data_format="channels_first", input_shape=(self.stack_frame, self.env_size, self.env_size)))
-        '''input shape is (height, width, channels) but Keras expects (batch_size, height, width, channels)
+        ''' """input shape is (height, width, channels) but Keras expects (batch_size, height, width, channels)
         keras handles the batch size automatically, so we don't need to specify it in the input shape
-        but we will need to reshape our input data accordingly'''
+        but we will need to reshape our input data accordingly"""
+        '''
         model.add(Conv2D(32, kernel_size=(3, 3), activation='relu'))
         model.add(Flatten())
         model.add(Dense(40, activation='relu'))
